@@ -1,6 +1,26 @@
 {
     "projects": [
         {
+            "title": "Matrix.py",
+            "description": "A Python project that demonstrates matrix operations.",
+            "link": "https://github.com/Ca3de/matrix",
+            "main_file": "Matrix.py",
+            "files": {
+                "Matrix.py": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\n\"\"\"\nExample to show how a multi dimensional array works in Python.\nThe \"array\" is implemented using lists of lists.\nPress 's' to save the state to the file and press 'l' to load the \nstate from the file. \n\"\"\"\n# pylint: disable=consider-using-enumerate\n\n\nfilename = 'matrix.txt'\n\n\n\ndef createMatrix(y, x, filler):\n    \"\"\"\n    Create a two-dimensional array and return it. \n    \"\"\"\n    return [[filler for _ in range(x)] for _ in range(y)]\n\n\n\ndef printMatrix(matrix):\n    \"\"\"\n    Print the content of the matrix. \n    \"\"\"\n    for row in matrix:\n        print(\"\".join(row))\n\n\n\ndef saveMatrix(matrix):\n    \"\"\"\n    Save the content of the matrix to a file. Do this by joining all items in the \n    list and create a string-representing the row and write that string to the file.\n    Add a newline to each row. \n    \"\"\"\n    with open(filename, 'w') as f:\n        for row in matrix:\n            f.write(\"\".join(row) + '\\n')\n\n    print(f\"Saved the state to the file {filename}\")\n\n\n\ndef loadMatrix(matrix):\n    \"\"\"\n    Load the content of the matrix from a file. Do this by reading the lines from the file\n    and splitting them into a list by characters. \n    Ignore the newline at each row. \n    \"\"\"\n    with open(filename, 'r') as f:\n\n        # with \\n\n        #content = f.readlines()\n        \n        # without \\n\n        content = f.read().splitlines()\n\n        # Update each row of the matrix and fill it by using the file content \n        # (may need som care when file and matrix size does not match)\n        for y in range(0, len(matrix)):\n            matrix[y] = list(content[y])\n\n    print(f\"Loaded the state from the file {filename}\")\n\n\n\ndef main():\n    \"\"\"\n    Main function to carry out the work.\n    \"\"\"\n\n    print(\"Enter the size of the matrix.\")\n    y = int(input(\"y: \"))\n    x = int(input(\"x: \"))\n\n    matrix = createMatrix(y, x, \"-\")\n\n    counter = 0\n    while 1:\n\n        printMatrix(matrix)\n\n        # Swap between X and O\n        if counter % 2:\n            char = \"X\"\n        else:\n            char = \"O\"\n\n        counter += 1\n\n        # Get a position to place the character\n        posY = input(\"Enter a row: \")\n        posX = input(\"Enter a column (or q for quit): \")\n\n        if posY == \"q\" or posX == \"q\":\n            break\n\n        elif posY == \"s\" or posX == \"s\":\n            saveMatrix(matrix)\n            continue\n\n        elif posY == \"l\" or posX == \"l\":\n            loadMatrix(matrix)\n            continue\n\n        #Place the character\n        matrix[int(posY)][int(posX)] = char\n\n\n\nif __name__ == \"__main__\":\n    print(__doc__)\n    input(\"Press enter to continue.\")\n    main()\n"
+            },
+            "language": "python"
+        },
+        {
+            "title": "Demo.js",
+            "description": "A JavaScript demo project showcasing basic functionalities.",
+            "link": "https://github.com/Ca3de/demo",
+            "main_file": "Demo.js",
+            "files": {
+                "Demo.js": "//demo.js is a JS file under tests folder\nmodule.exports = {\n    'step one: navigate to google' : function (browser) { //step one\n      browser\n        .url('https://www.google.com')\n        .waitForElementVisible('body', 1000)\n        .setValue('input[type=text]', 'nightwatch')\n        .waitForElementVisible('input[name=btnK]', 1000)\n    },\n  \n    'step two: click input' : function (browser) { //step two\n      browser\n        .click('input[name=btnK]')\n        .pause(1000)\n        .assert.containsText('#main', 'Night Watch')\n        .end(); //to close the browser session after all the steps\n    }\n"
+            },
+            "language": "javascript"
+        },
+        {
             "title": "NewProject.java",
             "description": "A Java project illustrating object-oriented principles.",
             "link": "https://github.com/Ca3de/newproject",
@@ -9,6 +29,16 @@
                 "NewProject.java": "// NewProject.java\nimport java.util.Scanner;\n\npublic class NewProject {\n\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        System.out.println(\"Enter first number:\");\n        double num1 = scanner.nextDouble();\n\n        System.out.println(\"Enter second number:\");\n        double num2 = scanner.nextDouble();\n\n        System.out.println(\"Enter operator (+, -, *, /):\");\n        char operator = scanner.next().charAt(0);\n\n        double result = 0;\n\n        switch (operator) {\n            case '+':\n                result = num1 + num2;\n                break;\n            case '-':\n                result = num1 - num2;\n                break;\n            case '*':\n                result = num1 * num2;\n                break;\n            case '/':\n                result = num1 / num2;\n                break;\n            default:\n                System.out.println(\"Invalid operator!\");\n                return;\n        }\n\n        System.out.println(num1 + \" \" + operator + \" \" + num2 + \" = \" + result);\n    }\n}\n"
             },
             "language": "java"
+        },
+        {
+            "title": "Calculator.py",
+            "description": "A Python project that implements a basic calculator.",
+            "link": "https://github.com/Ca3de/calculator",
+            "main_file": "Calculator.py",
+            "files": {
+                "Calculator.py": "#!/usr/bin/env python\n# This is a continuation of the my playing with python on the Raspberry\n#    This program will functionally be a calculator that takes two different numeric imputs and then\n#    prompts the user what they want to do with them, in a super-simple fashion.   The user enters\n#     two numbers, which are saved as longs'.  Then, since I imported regular expressions, you can check\n#     the input text to meet one of the if, elif conditionals below it.  For user input validation, I've\n#     placed the first number and second numbers in a while loop that throws an exception for invalid input.\n\nimport re\n\n#The main loop that keeps the py script in its entirety going\n\ngoAgain = 1\nwhile goAgain == 1:\n\n        # The first value entered\n\n        validity = True\n        while validity == True:\n                try:\n                        firstNumber = long(raw_input(\"Type the first number: \"))\n                        validity = False # If the user's input is good, exit the while loop\n                except ValueError:\n                        print(\"That's not a valid number, please re-enter the value \")\n                        \n\n        # The second value entered\n\n        validity = True\n        while validity == True:\n                try:\n                        secondNumber = long(raw_input(\"Type the second number: \"))\n                        validity = False # If the user's input is good, exit the while loop\n                except ValueError:\n                        print(\"That's not a valid number, please re-enter the value \")\n                        \n\n        # This section performs the user's mathematical operation based on their text input\n\n        mathChoice = str(raw_input(\"Add, subtract, multiply, or divide? \"))\n\n        if \"add\" in mathChoice.lower():\n                print firstNumber, \"added to\", secondNumber, \"equals\", firstNumber + secondNumber\n        elif \"subtract\" in mathChoice.lower():\n                print firstNumber, \"minus\", secondNumber, \"equals\", firstNumber - secondNumber\n        elif \"multiply\" in mathChoice.lower():\n                print firstNumber, \"times\", secondNumber, \"equals\", firstNumber * secondNumber\n        elif \"divide\" in mathChoice.lower():\n                print firstNumber, \"divided by\", secondNumber, \"equals\", firstNumber / secondNumber\n\n        # This keeps the while loop going or exits it based on the text you see\n        goAgain = int(raw_input(\"Type 1 to enter more numbers, or any other number to quit: \"))\n\nprint \"Goodbye!\\n\"\n"
+            },
+            "language": "python"
         }
     ]
 }
