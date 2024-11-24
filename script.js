@@ -176,7 +176,9 @@ ${codeContent.trim()}
                 animateCodeLines(codeElement);
             });
             // After adding all projects, highlight the code
-            Prism.highlightAll();
+            if (typeof Prism !== 'undefined') {
+                Prism.highlightAll();
+            }
         })
         .catch(error => {
             const projectsContainer = document.getElementById('projects-container');
@@ -306,6 +308,8 @@ function initializeCodePlayground() {
             console.error("Failed to load Pyodide:", error);
         }
     }
+
+    loadPyodideAndPackages();
 
     // Python Runner Function with Enhanced Error Handling
     async function runPython() {
