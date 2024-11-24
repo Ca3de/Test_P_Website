@@ -16,7 +16,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
     <!-- CodeMirror Themes (Optional) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/dracula.min.css">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://cdn.opalrb.com https://kit.fontawesome.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; connect-src 'self';">
+    <!-- Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://cdn.opalrb.com https://kit.fontawesome.com;
+        style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com;
+        font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com;
+        connect-src 'self';
+        img-src 'self' data:;
+        object-src 'none';
+        frame-src 'self';
+    ">
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -71,7 +81,7 @@
 console.log('Hello, World!');
 alert('Welcome to the Interactive JavaScript Runner!');
                         </textarea>
-                        <button onclick="runJavaScript()">Run Code</button>
+                        <button id="run-js-btn">Run Code</button>
                         <iframe id="js-output-frame" sandbox="allow-scripts" style="width:100%; height:200px; border:1px solid #ccc; margin-top:20px;"></iframe>
                     </div>
                 </div>
@@ -84,7 +94,7 @@ alert('Welcome to the Interactive JavaScript Runner!');
 # Write your Python code here
 print("Hello, World!")
                         </textarea>
-                        <button onclick="runPython()">Run Code</button>
+                        <button id="run-py-btn">Run Code</button>
                         <pre id="py-output" style="background-color: #1e1e1e; color: #abb2bf; padding: 10px; border-radius: 5px; height: 200px; overflow: auto; white-space: pre-wrap;"></pre>
                     </div>
                 </div>
