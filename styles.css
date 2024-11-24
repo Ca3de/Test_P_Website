@@ -750,10 +750,108 @@ pre[class*="language-"] {
 }
 
 /* ===================== */
+/* Project Page Styles */
+/* ===================== */
+
+.project-card {
+    background-color: var(--section-bg-color);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.atom-header, .atom-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #282c34;
+    color: #61dafb;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.tabs .tab {
+    margin-right: 10px;
+    cursor: default;
+}
+
+.window-controls .control {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.control.close {
+    background-color: #ff5f56;
+}
+
+.control.minimize {
+    background-color: #ffbd2e;
+}
+
+.control.maximize {
+    background-color: #27c93f;
+}
+
+.atom-content {
+    margin-top: 10px;
+}
+
+.project-description {
+    margin-top: 20px;
+}
+
+.project-description h3 {
+    margin-bottom: 10px;
+}
+
+.project-description p {
+    margin-bottom: 10px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--accent-color);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: var(--accent-hover-color);
+}
+
+.error {
+    color: red;
+    text-align: center;
+}
+
+/* ===================== */
 /* Responsive Adjustments */
 /* ===================== */
 
 @media (max-width: 768px) {
+    .nav-links {
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: var(--section-bg-color);
+        width: 200px;
+        display: none;
+        padding: 20px;
+        border-radius: 0 0 0 10px;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
     .language-tabs {
         flex-direction: column;
         align-items: center;
