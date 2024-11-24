@@ -1,37 +1,14 @@
 {
     "projects": [
         {
-            "title": "Matrix.py",
-            "description": "A Python project that demonstrates matrix operations.",
-            "link": "https://github.com/Ca3de/matrix",
-            "main_file": "Matrix.py",
-            "files": {
-                "Matrix.py": "def main():\n    print(\"Hello, World!\")\n\nif __name__ == '__main__':\n    main()"
-            },
-            "language": "python",
-            "image": "images/matrix.png"
-        },
-        {
-            "title": "Demo.js",
-            "description": "A JavaScript demo project showcasing basic functionalities.",
-            "link": "https://github.com/Ca3de/demo",
-            "main_file": "Demo.js",
-            "files": {
-                "Demo.js": "console.log('Hello, World!');\n\nfunction greet() {\n    console.log('Greetings!');\n}\ngreet();"
-            },
-            "language": "javascript",
-            "image": "images/demo.png"
-        },
-        {
             "title": "NewProject.java",
             "description": "A Java project illustrating object-oriented principles.",
             "link": "https://github.com/Ca3de/newproject",
             "main_file": "NewProject.java",
             "files": {
-                "NewProject.java": "public class NewProject {\n    public static void main(String[] args) {\n        System.out.println(\"Hello, World!\");\n    }\n}"
+                "NewProject.java": "// NewProject.java\nimport java.util.Scanner;\n\npublic class NewProject {\n\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        System.out.println(\"Enter first number:\");\n        double num1 = scanner.nextDouble();\n\n        System.out.println(\"Enter second number:\");\n        double num2 = scanner.nextDouble();\n\n        System.out.println(\"Enter operator (+, -, *, /):\");\n        char operator = scanner.next().charAt(0);\n\n        double result = 0;\n\n        switch (operator) {\n            case '+':\n                result = num1 + num2;\n                break;\n            case '-':\n                result = num1 - num2;\n                break;\n            case '*':\n                result = num1 * num2;\n                break;\n            case '/':\n                result = num1 / num2;\n                break;\n            default:\n                System.out.println(\"Invalid operator!\");\n                return;\n        }\n\n        System.out.println(num1 + \" \" + operator + \" \" + num2 + \" = \" + result);\n    }\n}\n"
             },
-            "language": "java",
-            "image": "images/newproject.png"
+            "language": "java"
         }
     ]
 }
