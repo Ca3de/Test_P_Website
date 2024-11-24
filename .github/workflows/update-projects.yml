@@ -26,21 +26,17 @@ jobs:
         with:
           node-version: '20'  # Specify Node.js version
 
-      # 3. Install Dependencies
-      - name: Install Dependencies
-        run: npm install
-
-      # 4. Run updateProjects.js
+      # 3. Run updateProjects.js
       - name: Run updateProjects.js
         run: node scripts/updateProjects.js
 
-      # 5. Configure Git
+      # 4. Configure Git
       - name: Configure Git
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
 
-      # 6. Commit and Push Changes
+      # 5. Commit and Push Changes
       - name: Commit and Push changes
         run: |
           git add projects.json
