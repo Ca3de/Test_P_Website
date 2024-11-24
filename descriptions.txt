@@ -1,3 +1,4 @@
 1. Matrix.py: "A Python project that demonstrates matrix operations."; https://github.com/Ca3de/matrix
 2. Demo.js: "A JavaScript demo project showcasing basic functionalities."; https://github.com/Ca3de/demo
 3. NewProject.java: "A Java project illustrating object-oriented principles."; https://github.com/Ca3de/newproject
+4. Calculator.py: "A Python project that implements a basic calculator."; https://github.com/Ca3de/calculator
