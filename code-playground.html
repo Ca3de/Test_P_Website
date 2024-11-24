@@ -84,7 +84,7 @@ alert('Welcome to the Interactive JavaScript Runner!');
 print("Hello, World!")
                         </textarea>
                         <button onclick="runPython()">Run Code</button>
-                        <pre id="py-output"></pre>
+                        <pre id="py-output" style="background-color: #1e1e1e; color: #abb2bf; padding: 10px; border-radius: 5px; height: 200px; overflow: auto; white-space: pre-wrap;"></pre>
                     </div>
                 </div>
             </div>
@@ -110,103 +110,5 @@ print("Hello, World!")
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <!-- Your Custom Script -->
     <script src="script.js"></script>
-    
-    <!-- Inline Scripts for Code Runners -->
-    <script>
-        // Initialize CodeMirror for JavaScript
-        const jsEditor = CodeMirror.fromTextArea(document.getElementById('js-code'), {
-            lineNumbers: true,
-            mode: "javascript",
-            theme: "dracula"
-        });
-
-        // Initialize CodeMirror for Python
-        const pyEditor = CodeMirror.fromTextArea(document.getElementById('py-code'), {
-            lineNumbers: true,
-            mode: "python",
-            theme: "dracula"
-        });
-
-        // Language Selection Function
-        function selectLanguage(lang) {
-            // Remove active class from all tabs
-            document.querySelectorAll('.lang-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            // Add active class to selected tab
-            document.querySelector(`.lang-tab[onclick="selectLanguage('${lang}')"]`).classList.add('active');
-
-            // Show/Hide Runner Sections
-            document.querySelectorAll('.runner-section').forEach(section => {
-                section.style.display = 'none';
-            });
-            document.getElementById(`runner-${lang}`).style.display = 'block';
-        }
-
-        // JavaScript Runner Function
-        function runJavaScript() {
-            const code = jsEditor.getValue();
-            const iframe = document.getElementById('js-output-frame');
-            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-
-            // Clear previous content
-            iframeDoc.open();
-            iframeDoc.write(`
-                <!DOCTYPE html>
-                <html lang="en">
-                <head><title>Output</title></head>
-                <body>
-                    <pre id="output"></pre>
-                    <script>
-                        (function() {
-                            const output = document.getElementById('output');
-                            console.log = function(message) {
-                                output.textContent += message + '\\n';
-                            };
-                            try {
-                                ${code}
-                            } catch (error) {
-                                output.textContent = error;
-                            }
-                        })();
-                    <\/script>
-                </body>
-                </html>
-            `);
-            iframeDoc.close();
-        }
-
-        // Initialize Pyodide
-        let pyodideReady = false;
-        let pyodide = null;
-
-        async function loadPyodideAndPackages() {
-            pyodide = await loadPyodide();
-            pyodideReady = true;
-        }
-
-        loadPyodideAndPackages();
-
-        // Python Runner Function
-        async function runPython() {
-            if (!pyodideReady) {
-                alert("Loading Python environment, please wait...");
-                return;
-            }
-            const code = pyEditor.getValue();
-            const output = document.getElementById('py-output');
-            output.textContent = ''; // Clear previous output
-
-            try {
-                // Redirect print to capture output
-                pyodide.globals.set("print", (text) => {
-                    output.textContent += text + '\n';
-                });
-                await pyodide.runPythonAsync(code);
-            } catch (error) {
-                output.textContent = error;
-            }
-        }
-    </script>
 </body>
 </html>
