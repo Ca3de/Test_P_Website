@@ -4,42 +4,28 @@ const navLinks = document.querySelector('.nav-links');
 
 hamburger.addEventListener('click', () => {
     navLinks.classList.toggle('active');
+    // Toggle ARIA attribute for accessibility
+    const expanded = hamburger.getAttribute('aria-expanded') === 'true' || false;
+    hamburger.setAttribute('aria-expanded', !expanded);
 });
 
 // Theme Toggle
 const themeToggle = document.querySelector('.theme-toggle');
 const body = document.body;
+const themeIcon = themeToggle.querySelector('i');
 
-themeToggle.addEventListener('click', () => {
-    // Create the expanding circle
-    const circle = document.createElement('span');
-    circle.classList.add('theme-transition-circle');
-    body.appendChild(circle);
-
-    // Toggle the light mode
-    body.classList.toggle('light-mode');
-    body.classList.toggle('dark-mode'); // Ensure to toggle both classes
-
-    // Save the theme preference
-    if (body.classList.contains('light-mode')) {
-        localStorage.setItem('theme', 'light');
-    } else {
-        localStorage.setItem('theme', 'dark');
-    }
-
-    // Remove the circle after animation
-    circle.addEventListener('animationend', () => {
-        circle.remove();
-    });
-});
-
-// Load saved theme on page load
+// Initialize AOS
 document.addEventListener('DOMContentLoaded', () => {
+    // Load saved theme
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'light') {
         body.classList.add('light-mode');
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
     } else {
         body.classList.add('dark-mode'); // Default to dark mode if not set
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
     }
 
     // Initialize AOS
@@ -51,6 +37,34 @@ document.addEventListener('DOMContentLoaded', () => {
             mirror: false
         });
     }
+});
+
+// Theme Toggle Event Listener
+themeToggle.addEventListener('click', () => {
+    // Create the expanding circle
+    const circle = document.createElement('span');
+    circle.classList.add('theme-transition-circle');
+    body.appendChild(circle);
+
+    // Toggle the light mode
+    body.classList.toggle('light-mode');
+    body.classList.toggle('dark-mode'); // Ensure to toggle both classes
+
+    // Update theme icon
+    if (body.classList.contains('light-mode')) {
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+        localStorage.setItem('theme', 'light');
+    } else {
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+        localStorage.setItem('theme', 'dark');
+    }
+
+    // Remove the circle after animation
+    circle.addEventListener('animationend', () => {
+        circle.remove();
+    });
 });
 
 // Scroll to Projects Section when Scroll Indicator is clicked
@@ -76,20 +90,29 @@ fetch('projects.json')
 
             // Construct code lines with animation
             let codeContent = '';
-            const codeLines = project.files[project.main_file].split('\n');
-            codeLines.forEach((line, index) => {
-                codeContent += `<span class="code-line" data-aos="fade-up" data-aos-delay="${index * 100}">${escapeHtml(line)}</span>\n`;
-            });
+            if (project.files && project.main_file && project.files[project.main_file]) {
+                const codeLines = project.files[project.main_file].split('\n');
+                codeLines.forEach((line, index) => {
+                    codeContent += `<span class="code-line" data-aos="fade-up" data-aos-delay="${index * 100}">${escapeHtml(line)}</span>\n`;
+                });
+            } else {
+                codeContent = `<span class="code-line">No code available.</span>`;
+            }
+
+            // Handle project image if available
+            const projectImage = project.image ? `<img src="${project.image}" alt="${escapeHtml(project.title)} Image" class="project-image" data-aos="fade-up">` : '';
 
             projectCard.innerHTML = `
+                ${projectImage}
                 <div class="project-code" data-aos="fade-up">
                     <pre><code class="language-${project.language}">
 ${codeContent.trim()}
                     </code></pre>
                 </div>
-                <div class="project-description" data-aos="fade-up" data-aos-delay="${codeLines.length * 100}">
-                    <p>${project.description}</p>
-                    <a href="${project.link}" class="btn" target="_blank">View Project</a>
+                <div class="project-description" data-aos="fade-up" data-aos-delay="${codeContent.split('\n').length * 100}">
+                    <h3>${escapeHtml(project.title)}</h3>
+                    <p>${escapeHtml(project.description)}</p>
+                    <a href="${project.link}" class="btn" target="_blank" rel="noopener noreferrer">View Project</a>
                 </div>
             `;
             projectsContainer.appendChild(projectCard);
@@ -101,6 +124,7 @@ ${codeContent.trim()}
 
 // Function to escape HTML to prevent rendering issues
 function escapeHtml(str) {
+    if (typeof str !== 'string') return '';
     return str.replace(/&/g, "&amp;")
               .replace(/</g, "&lt;")
               .replace(/>/g, "&gt;")
