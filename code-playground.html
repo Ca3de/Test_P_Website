@@ -1,28 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Head Content -->
+    <!-- Existing head content -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code Playground | Axion</title>
     <link rel="stylesheet" href="styles.css">
+    
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <!-- Google Fonts (Optional) -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    
     <!-- AOS CSS for Animations -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    
     <!-- CodeMirror CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    
     <!-- CodeMirror Themes (Optional) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/dracula.min.css">
+    
     <!-- Content Security Policy -->
     <meta http-equiv="Content-Security-Policy" content="
         default-src 'self';
-        script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://cdn.opalrb.com https://kit.fontawesome.com;
+        script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://cdn.opalrb.com;
         style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com;
         font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com;
-        connect-src 'self';
+        connect-src 'self' https://cdn.jsdelivr.net;
         img-src 'self' data:;
         object-src 'none';
         frame-src 'self';
@@ -68,8 +74,8 @@
                 
                 <!-- Language Selection Tabs -->
                 <div class="language-tabs">
-                    <button class="lang-tab active" onclick="selectLanguage('javascript')">JavaScript</button>
-                    <button class="lang-tab" onclick="selectLanguage('python')">Python</button>
+                    <button class="lang-tab active" id="lang-js">JavaScript</button>
+                    <button class="lang-tab" id="lang-py">Python</button>
                 </div>
                 
                 <!-- JavaScript Runner -->
@@ -117,8 +123,6 @@ print("Hello, World!")
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/python/python.min.js"></script>
     <!-- Pyodide for Python Execution -->
     <script src="https://cdn.jsdelivr.net/pyodide/v0.23.3/full/pyodide.js"></script>
-    <!-- Font Awesome for Icons -->
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <!-- Your Custom Script -->
     <script src="script.js"></script>
 </body>
