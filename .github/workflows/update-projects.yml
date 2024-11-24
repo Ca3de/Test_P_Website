@@ -3,7 +3,8 @@ name: Update Projects JSON
 on:
   push:
     paths:
-      - 'projects_data/**'  # Trigger the workflow when changes are made in this folder
+      - 'projects/**'  # Trigger the workflow when changes are made in the projects folder
+      - 'descriptions.txt'  # Also trigger when descriptions.txt is updated
 
 permissions:
   contents: write  # Grant write permissions for repository contents
@@ -21,19 +22,17 @@ jobs:
 
       # 2. Set up Node.js
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4.1
         with:
           node-version: '20'  # Specify Node.js version
 
-      # 3. Pull Latest Changes with Rebase
-      - name: Pull Latest Changes
-        run: |
-          git pull --rebase origin main
+      # 3. Install Dependencies
+      - name: Install Dependencies
+        run: npm install
 
       # 4. Run updateProjects.js
       - name: Run updateProjects.js
-        run: |
-          node updateProjects.js
+        run: node scripts/updateProjects.js
 
       # 5. Configure Git
       - name: Configure Git
@@ -47,3 +46,5 @@ jobs:
           git add projects.json
           git commit -m "Automated update of projects.json" || echo "No changes to commit"
           git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
