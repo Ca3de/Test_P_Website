@@ -11,6 +11,7 @@
 body {
     font-family: 'Montserrat', sans-serif;
     background-color: var(--bg-color);
+    background-image: var(--background-image);
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -418,8 +419,8 @@ footer {
     --intro-sub-font-color: #ffd700;
 }
 
+/* Light Mode Overrides */
 body.light-mode {
-    /* Light Theme Variables */
     --bg-color: #ffffff;
     --text-color: #000000;
     --nav-bg-color: #f0f0f0;
@@ -433,19 +434,6 @@ body.light-mode {
     --intro-header-font-color: #000000;
     --intro-hello-font-color: #000000;
     --intro-sub-font-color: #000000;
-}
-
-body {
-    background-color: var(--bg-color);
-    background-image: var(--background-image);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    color: var(--text-color);
-    transition: background-color 0.5s, color 0.5s, background-image 0.5s;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
 }
 
 .logo a {
