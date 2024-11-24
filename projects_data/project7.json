@@ -1,0 +1,11 @@
+{
+  "title": "Project Seven",
+  "description": "A brief description of Project Sevennmnmvjfd.",
+  "image": "images/project1.jpg",
+  "link": "https://github.com/Ca3de/super-octo-train",
+  "main_file": "train.py",
+  "files": {
+    "train.py": "console.log('Hello, World!');",
+    "utils.py": "def helper():\n    return 'Helper function'"    },
+  "language": "python"
+}

@@ -1,0 +1,10 @@
+{
+    "title": "Project One",
+    "description": "A brief description of Project One.",
+    "link": "https://github.com/Ca3de/super-octo-train",
+    "main_file": "index.js",
+    "files": {
+        "index.js": "console.log('Hello, World!');\n\nfunction greet() {\n    console.log('Greetings!');\n}\ngreet();"
+    },
+    "language": "javascript"
+}
