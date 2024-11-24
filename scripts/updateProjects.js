@@ -28,7 +28,7 @@ function parseDescriptions() {
 
 // Function to scan projects folder
 function scanProjectsFolder() {
-    const files = fs.readdirSync(projects);
+    const files = fs.readdirSync(projectsFolder);
     return files.filter(file => {
         // Consider only .py, .js, .java files for this example
         return file.endsWith('.py') || file.endsWith('.js') || file.endsWith('.java');
@@ -41,7 +41,7 @@ function generateProjectsJson(projectsData, projectFiles) {
 
     projectsData.forEach(item => {
         if (projectFiles.includes(item.fileName)) {
-            const filePath = path.join(projects, item.fileName);
+            const filePath = path.join(projectsFolder, item.fileName);
             const fileContent = fs.readFileSync(filePath, 'utf-8');
 
             const language = path.extname(item.fileName).substring(1); // 'py', 'js', 'java'
