@@ -235,7 +235,8 @@ function initializeCodePlayground() {
         document.getElementById('runner-javascript').style.display = 'none';
     });
 
-    // Real-Time Code Execution with Debounce
+    // Real-Time Code Execution with Debounce (Optional)
+    /*
     let jsTimeout, pyTimeout;
 
     jsEditor.on("change", () => {
@@ -247,6 +248,7 @@ function initializeCodePlayground() {
         clearTimeout(pyTimeout);
         pyTimeout = setTimeout(runPython, 500); // Runs after 500ms of inactivity
     });
+    */
 
     // JavaScript Runner Button
     const runJsBtn = document.getElementById('run-js-btn');
@@ -264,6 +266,12 @@ function initializeCodePlayground() {
     function runJavaScript() {
         const code = jsEditor.getValue();
         const iframe = document.getElementById('js-output-frame');
+
+        if (!iframe) {
+            console.error("Iframe with ID 'js-output-frame' not found.");
+            return;
+        }
+
         const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
 
         // Clear previous content
@@ -313,6 +321,12 @@ function initializeCodePlayground() {
 
     // Python Runner Function with Enhanced Error Handling
     async function runPython() {
+        const output = document.getElementById('py-output');
+        if (!output) {
+            console.error("Element with ID 'py-output' not found.");
+            return;
+        }
+
         if (!pyodideReady) {
             alert("Loading Python environment, please wait...");
             await loadPyodideAndPackages();
@@ -321,8 +335,8 @@ function initializeCodePlayground() {
                 return;
             }
         }
+
         const code = pyEditor.getValue();
-        const output = document.getElementById('py-output');
         output.textContent = ''; // Clear previous output
 
         try {
@@ -351,7 +365,8 @@ function initializeCodePlayground() {
         }
     }
 
-    // Save code on editor changes
+    // Save code on editor changes (Optional)
+    /*
     jsEditor.on("change", () => {
         saveCode(jsEditor, 'js-code');
     });
@@ -359,6 +374,7 @@ function initializeCodePlayground() {
     pyEditor.on("change", () => {
         saveCode(pyEditor, 'py-code');
     });
+    */
 
     // Load code on initialization
     loadCode(jsEditor, 'js-code');

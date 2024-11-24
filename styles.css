@@ -739,6 +739,7 @@ pre[class*="language-"] {
     height: 200px;
     overflow: auto;
     white-space: pre-wrap;
+    margin-top: 10px;
 }
 
 /* CodeMirror Styling Overrides */
