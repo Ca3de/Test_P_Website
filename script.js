@@ -157,7 +157,7 @@ if (document.getElementById('projects-container')) {
                     <div class="atom-content">
                         ${projectImage}
                         <pre><code class="language-${project.language}">
-    ${codeContent.trim()}
+${codeContent.trim()}
                         </code></pre>
                     </div>
                     <div class="atom-footer">
@@ -243,6 +243,18 @@ function initializeCodePlayground() {
         clearTimeout(pyTimeout);
         pyTimeout = setTimeout(runPython, 500); // Runs after 500ms of inactivity
     });
+
+    // JavaScript Runner Button
+    const runJsBtn = document.getElementById('run-js-btn');
+    if (runJsBtn) {
+        runJsBtn.addEventListener('click', runJavaScript);
+    }
+
+    // Python Runner Button
+    const runPyBtn = document.getElementById('run-py-btn');
+    if (runPyBtn) {
+        runPyBtn.addEventListener('click', runPython);
+    }
 
     // JavaScript Runner Function with Enhanced Error Handling
     function runJavaScript() {
