@@ -1,0 +1,49 @@
+name: Update Projects JSON
+
+on:
+  push:
+    paths:
+      - 'projects_data/**'  # Trigger the workflow when changes are made in this folder
+
+permissions:
+  contents: write  # Grant write permissions for repository contents
+
+jobs:
+  update-json:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout Repository
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Fetch all history for all branches
+
+      # 2. Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'  # Specify Node.js version
+
+      # 3. Pull Latest Changes with Rebase
+      - name: Pull Latest Changes
+        run: |
+          git pull --rebase origin main
+
+      # 4. Run updateProjects.js
+      - name: Run updateProjects.js
+        run: |
+          node updateProjects.js
+
+      # 5. Configure Git
+      - name: Configure Git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+      # 6. Commit and Push Changes
+      - name: Commit and Push changes
+        run: |
+          git add projects.json
+          git commit -m "Automated update of projects.json" || echo "No changes to commit"
+          git push
