@@ -210,25 +210,27 @@ function initializeCodePlayground() {
     });
 
     // Language Selection Tabs
-    const languageTabs = document.querySelectorAll('.lang-tab');
+    const langJsBtn = document.getElementById('lang-js');
+    const langPyBtn = document.getElementById('lang-py');
 
-    languageTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            // Remove active class from all tabs
-            languageTabs.forEach(t => t.classList.remove('active'));
-            // Add active class to the clicked tab
-            tab.classList.add('active');
+    langJsBtn.addEventListener('click', () => {
+        // Remove active class from all tabs
+        langJsBtn.classList.add('active');
+        langPyBtn.classList.remove('active');
 
-            // Show corresponding runner section
-            const selectedLanguage = tab.textContent.toLowerCase();
-            document.querySelectorAll('.runner-section').forEach(section => {
-                if (section.id === `runner-${selectedLanguage}`) {
-                    section.style.display = 'block';
-                } else {
-                    section.style.display = 'none';
-                }
-            });
-        });
+        // Show JavaScript runner and hide Python runner
+        document.getElementById('runner-javascript').style.display = 'block';
+        document.getElementById('runner-python').style.display = 'none';
+    });
+
+    langPyBtn.addEventListener('click', () => {
+        // Remove active class from all tabs
+        langPyBtn.classList.add('active');
+        langJsBtn.classList.remove('active');
+
+        // Show Python runner and hide JavaScript runner
+        document.getElementById('runner-python').style.display = 'block';
+        document.getElementById('runner-javascript').style.display = 'none';
     });
 
     // Real-Time Code Execution with Debounce
@@ -305,13 +307,15 @@ function initializeCodePlayground() {
         }
     }
 
-    loadPyodideAndPackages();
-
     // Python Runner Function with Enhanced Error Handling
     async function runPython() {
         if (!pyodideReady) {
             alert("Loading Python environment, please wait...");
-            return;
+            await loadPyodideAndPackages();
+            if (!pyodideReady) {
+                alert("Failed to load Python environment.");
+                return;
+            }
         }
         const code = pyEditor.getValue();
         const output = document.getElementById('py-output');
@@ -365,10 +369,10 @@ function initializeCodePlayground() {
 function escapeHtml(str) {
     if (typeof str !== 'string') return '';
     return str.replace(/&/g, "&amp;")
-              .replace(/</g, "&lt;")
-              .replace(/>/g, "&gt;")
-              .replace(/"/g, "&quot;")
-              .replace(/'/g, "&#039;");
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 }
 
 // Function to animate code lines

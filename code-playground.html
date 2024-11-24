@@ -1,129 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Existing head content -->
+    <!-- Head Content -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code Playground | Axion</title>
     <link rel="stylesheet" href="styles.css">
-    
+
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Google Fonts (Optional) -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    
+
     <!-- AOS CSS for Animations -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-    
+
     <!-- CodeMirror CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
-    
+
     <!-- CodeMirror Themes (Optional) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/dracula.min.css">
-    
+
     <!-- Content Security Policy -->
     <meta http-equiv="Content-Security-Policy" content="
-        default-src 'self';
-        script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://cdn.opalrb.com;
-        style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com;
-        font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com;
-        connect-src 'self' https://cdn.jsdelivr.net;
-        img-src 'self' data:;
-        object-src 'none';
-        frame-src 'self';
-    ">
+    default-src 'self';
+    script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://cdn.opalrb.com;
+    style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com;
+    font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com;
+    connect-src 'self' https://cdn.jsdelivr.net;
+    img-src 'self' data:;
+    object-src 'none';
+    frame-src 'self';
+">
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav>
-        <div class="container nav-container">
-            <div class="logo">
-                <a href="index.html">Israel Oladeji</a>
-            </div>
-            <ul class="nav-links">
-                <li><a href="index.html#home">Home</a></li>
-                <li><a href="index.html#skills">Skills</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="gallery.html">Gallery</a></li>
-                <li><a href="index.html#resume">Resume</a></li>
-                <li><a href="index.html#contact">Links</a></li>
-                <li><a href="code-playground.html">Code Playground</a></li> <!-- New Link -->
-            </ul>
-            <!-- Toggle Buttons -->
-            <div class="theme-toggle" role="button" aria-label="Toggle Theme" tabindex="0">
-                <i class="fas fa-moon"></i>
-            </div>
-            <div class="hamburger" role="button" aria-label="Toggle Navigation Menu" tabindex="0">
-                <i class="fas fa-bars"></i>
-            </div>
+<!-- Navigation Bar -->
+<nav>
+    <div class="container nav-container">
+        <div class="logo">
+            <a href="index.html">Israel Oladeji</a>
         </div>
-    </nav>
-    
-    <!-- Scroll Indicator (Optional) -->
-    <div class="scroll-indicator" data-aos="fade-up" data-aos-delay="200">
-        <i class="fas fa-arrow-down"></i>
+        <ul class="nav-links">
+            <li><a href="index.html#home">Home</a></li>
+            <li><a href="index.html#skills">Skills</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="index.html#resume">Resume</a></li>
+            <li><a href="index.html#contact">Links</a></li>
+            <li><a href="code-playground.html">Code Playground</a></li> <!-- New Link -->
+        </ul>
+        <!-- Toggle Buttons -->
+        <div class="theme-toggle" role="button" aria-label="Toggle Theme" tabindex="0">
+            <i class="fas fa-moon"></i>
+        </div>
+        <div class="hamburger" role="button" aria-label="Toggle Navigation Menu" tabindex="0">
+            <i class="fas fa-bars"></i>
+        </div>
     </div>
-    
-    <!-- Main Content Wrapper -->
-    <main class="main-content">
-        <!-- Code Playground Section -->
-        <section id="code-playground" class="section">
-            <div class="container" data-aos="fade-up">
-                <h2>Code Playground</h2>
-                
-                <!-- Language Selection Tabs -->
-                <div class="language-tabs">
-                    <button class="lang-tab active" id="lang-js">JavaScript</button>
-                    <button class="lang-tab" id="lang-py">Python</button>
-                </div>
-                
-                <!-- JavaScript Runner -->
-                <div id="runner-javascript" class="runner-section">
-                    <h3>JavaScript Runner</h3>
-                    <div class="code-runner">
+</nav>
+
+<!-- Scroll Indicator (Optional) -->
+<div class="scroll-indicator" data-aos="fade-up" data-aos-delay="200">
+    <i class="fas fa-arrow-down"></i>
+</div>
+
+<!-- Main Content Wrapper -->
+<main class="main-content">
+    <!-- Code Playground Section -->
+    <section id="code-playground" class="section">
+        <div class="container" data-aos="fade-up">
+            <h2>Code Playground</h2>
+
+            <!-- Language Selection Tabs -->
+            <div class="language-tabs">
+                <button class="lang-tab active" id="lang-js">JavaScript</button>
+                <button class="lang-tab" id="lang-py">Python</button>
+            </div>
+
+            <!-- JavaScript Runner -->
+            <div id="runner-javascript" class="runner-section">
+                <h3>JavaScript Runner</h3>
+                <div class="code-runner">
                         <textarea id="js-code" name="js-code">
 // Write your JavaScript code here
 console.log('Hello, World!');
 alert('Welcome to the Interactive JavaScript Runner!');
                         </textarea>
-                        <button id="run-js-btn">Run Code</button>
-                        <iframe id="js-output-frame" sandbox="allow-scripts" style="width:100%; height:200px; border:1px solid #ccc; margin-top:20px;"></iframe>
-                    </div>
+                    <button id="run-js-btn">Run Code</button>
+                    <iframe id="js-output-frame" sandbox="allow-scripts" style="width:100%; height:200px; border:1px solid #ccc; margin-top:20px;"></iframe>
                 </div>
-                
-                <!-- Python Runner -->
-                <div id="runner-python" class="runner-section" style="display: none;">
-                    <h3>Python Runner</h3>
-                    <div class="code-runner">
+            </div>
+
+            <!-- Python Runner -->
+            <div id="runner-python" class="runner-section" style="display: none;">
+                <h3>Python Runner</h3>
+                <div class="code-runner">
                         <textarea id="py-code" name="py-code">
 # Write your Python code here
 print("Hello, World!")
                         </textarea>
-                        <button id="run-py-btn">Run Code</button>
-                        <pre id="py-output" style="background-color: #1e1e1e; color: #abb2bf; padding: 10px; border-radius: 5px; height: 200px; overflow: auto; white-space: pre-wrap;"></pre>
-                    </div>
+                    <button id="run-py-btn">Run Code</button>
+                    <pre id="py-output" style="background-color: #1e1e1e; color: #abb2bf; padding: 10px; border-radius: 5px; height: 200px; overflow: auto; white-space: pre-wrap;"></pre>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
+</main>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 Israel Oladeji | Axion. All rights reserved.</p>
-    </footer>
+<!-- Footer -->
+<footer>
+    <p>&copy; 2024 Israel Oladeji | Axion. All rights reserved.</p>
+</footer>
 
-    <!-- JavaScript Libraries -->
-    <!-- AOS JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <!-- CodeMirror JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
-    <!-- CodeMirror Modes -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/python/python.min.js"></script>
-    <!-- Pyodide for Python Execution -->
-    <script src="https://cdn.jsdelivr.net/pyodide/v0.23.3/full/pyodide.js"></script>
-    <!-- Your Custom Script -->
-    <script src="script.js"></script>
+<!-- JavaScript Libraries -->
+<!-- AOS JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" defer></script>
+<!-- CodeMirror JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js" defer></script>
+<!-- CodeMirror Modes -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/python/python.min.js" defer></script>
+<!-- Pyodide for Python Execution -->
+<script src="https://cdn.jsdelivr.net/pyodide/v0.23.3/full/pyodide.js" defer></script>
+<!-- Your Custom Script -->
+<script src="script.js" defer></script>
 </body>
 </html>
