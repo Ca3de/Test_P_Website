@@ -15,8 +15,7 @@
     <!-- AOS CSS for Animations -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
 </head>
-<body class="dark-mode">
-
+<body>
     <!-- Navigation Bar -->
     <nav>
         <div class="container nav-container">
@@ -32,16 +31,16 @@
                 <li><a href="index.html#contact">Links</a></li>
             </ul>
             <!-- Add Toggle Button in Navigation -->
-            <div class="theme-toggle">
+            <div class="theme-toggle" role="button" aria-label="Toggle Theme">
                 <i class="fas fa-moon"></i>
             </div>
-            <div class="hamburger">
+            <div class="hamburger" role="button" aria-label="Toggle Navigation Menu">
                 <i class="fas fa-bars"></i>
             </div>
         </div>
     </nav>
     
-    <div class="scroll-indicator" data-aos="fade-up" data-aos-delay="2000">
+    <div class="scroll-indicator" data-aos="fade-up" data-aos-delay="200">
         <i class="fas fa-arrow-down"></i>
     </div>
     
@@ -77,58 +76,5 @@
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <!-- Your Custom Script -->
     <script src="script.js"></script>
-    <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 800,
-            easing: 'ease-in-out',
-            once: true,
-            mirror: false
-        });
-
-        // Fetch and display projects from projects.json
-        fetch('projects.json')
-            .then(response => response.json())
-            .then(data => {
-                const projectsContainer = document.getElementById('projects-container');
-                data.projects.forEach(project => {
-                    const projectCard = document.createElement('div');
-                    projectCard.classList.add('project-card');
-                    projectCard.setAttribute('data-aos', 'fade-up');
-
-                    // Construct code lines with animation
-                    let codeContent = '';
-                    const codeLines = project.files[project.main_file].split('\n');
-                    codeLines.forEach((line, index) => {
-                        codeContent += `<span class="code-line" data-aos="fade-up" data-aos-delay="${index * 100}">${escapeHtml(line)}</span>\n`;
-                    });
-
-                    projectCard.innerHTML = `
-                        <div class="project-code" data-aos="fade-up">
-                            <pre><code class="language-${project.language}">
-${codeContent.trim()}
-                            </code></pre>
-                        </div>
-                        <div class="project-description" data-aos="fade-up" data-aos-delay="${codeLines.length * 100}">
-                            <p>${project.description}</p>
-                            <a href="${project.link}" class="btn" target="_blank">View Project</a>
-                        </div>
-                    `;
-                    projectsContainer.appendChild(projectCard);
-                });
-                // After adding all projects, highlight the code
-                Prism.highlightAll();
-            })
-            .catch(error => console.error('Error loading projects:', error));
-
-        // Function to escape HTML to prevent rendering issues
-        function escapeHtml(str) {
-            return str.replace(/&/g, "&amp;")
-                      .replace(/</g, "&lt;")
-                      .replace(/>/g, "&gt;")
-                      .replace(/"/g, "&quot;")
-                      .replace(/'/g, "&#039;");
-        }
-    </script>
 </body>
 </html>
