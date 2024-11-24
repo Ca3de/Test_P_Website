@@ -1,48 +1,37 @@
 {
     "projects": [
         {
-            "title": "Project One",
-            "description": "A brief description of Project One.",
-            "link": "https://github.com/Ca3de/super-octo-train",
-            "main_file": "index.js",
+            "title": "Matrix.py",
+            "description": "A Python project that demonstrates matrix operations.",
+            "link": "https://github.com/Ca3de/matrix",
+            "main_file": "Matrix.py",
             "files": {
-                "index.js": "console.log('Hello, World!');\n\nfunction greet() {\n    console.log('Greetings!');\n}\ngreet();"
+                "Matrix.py": "def main():\n    print(\"Hello, World!\")\n\nif __name__ == '__main__':\n    main()"
             },
-            "language": "javascript"
+            "language": "python",
+            "image": "images/matrix.png"
         },
         {
-            "title": "Project Two",
-            "description": "A brief description of Project Two.",
-            "link": "https://github.com/Ca3de/super-octo-train",
-            "main_file": "index.js",
+            "title": "Demo.js",
+            "description": "A JavaScript demo project showcasing basic functionalities.",
+            "link": "https://github.com/Ca3de/demo",
+            "main_file": "Demo.js",
             "files": {
-                "index.js": "console.log('Hello2, World!');\n\nfunction greet() {\n    console.log('Greetings!');\n}\ngreet();"
+                "Demo.js": "console.log('Hello, World!');\n\nfunction greet() {\n    console.log('Greetings!');\n}\ngreet();"
             },
-            "language": "javascript"
+            "language": "javascript",
+            "image": "images/demo.png"
         },
         {
-            "title": "Project Three",
-            "description": "A brief description of Project Three.",
-            "image": "images/project3.jpg",
-            "link": "https://github.com/Ca3de/super-octo-train",
-            "main_file": "train.py",
+            "title": "NewProject.java",
+            "description": "A Java project illustrating object-oriented principles.",
+            "link": "https://github.com/Ca3de/newproject",
+            "main_file": "NewProject.java",
             "files": {
-                "train.py": "def main():\n    print('Hello, World!')\n\nif __name__ == '__main__':\n    main()",
-                "utils.py": "def helper():\n    return 'Helper function'"
+                "NewProject.java": "public class NewProject {\n    public static void main(String[] args) {\n        System.out.println(\"Hello, World!\");\n    }\n}"
             },
-            "language": "python"
-        },
-        {
-            "title": "Project Four",
-            "description": "A brief description of Project Four.",
-            "image": "images/project4.jpg",
-            "link": "https://github.com/Ca3de/super-octo-train",
-            "main_file": "train.py",
-            "files": {
-                "train.py": "def main():\n    print('Hello, World!')\n\nif __name__ == '__main__':\n    main()",
-                "utils.py": "def helper():\n    return 'Helper function'"
-            },
-            "language": "python"
+            "language": "java",
+            "image": "images/newproject.png"
         }
     ]
 }
