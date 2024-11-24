@@ -711,6 +711,10 @@ pre[class*="language-"] {
     border-radius: 5px;
 }
 
+.py-code{
+    background-color: var(--accent-color);
+}
+
 .code-runner button {
     align-self: flex-end;
     margin-top: 10px;

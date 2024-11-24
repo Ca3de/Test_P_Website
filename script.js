@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
         AOS.init({
             duration: 800,
             easing: 'ease-in-out',
-            once: true,
+            once: false,
             mirror: false
         });
     }
@@ -200,7 +200,8 @@ function initializeCodePlayground() {
     const jsEditor = CodeMirror.fromTextArea(document.getElementById('js-code'), {
         lineNumbers: true,
         mode: "javascript",
-        theme: "dracula",
+        theme: "dracula darcula",
+        electricChars: True,
         viewportMargin: Infinity
     });
 
