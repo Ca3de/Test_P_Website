@@ -19,8 +19,8 @@
     <!-- CodeMirror CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
 
-    <!-- CodeMirror Themes (Optional) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/dracula.min.css">
+    <!-- CodeMirror Default Theme (Dracula) -->
+    <link rel="stylesheet" href="assets/codemirror/theme/dracula.css">
 
     <!-- Content Security Policy -->
     <meta http-equiv="Content-Security-Policy" content="
@@ -72,6 +72,20 @@
         <div class="container" data-aos="fade-up">
             <h2>Code Playground</h2>
 
+            <!-- Theme Selector -->
+            <div class="theme-selector" style="margin-bottom: 20px; text-align: center;">
+                <label for="theme-select">Choose Theme: </label>
+                <select id="theme-select">
+                    <option value="dracula">Dracula</option>
+                    <option value="eclipse">Eclipse</option>
+                    <option value="monokai">Monokai</option>
+                    <option value="elegant">Elegant</option>
+                    <option value="mdn-like">MDN-Like</option>
+                    <option value="duotone-light">Duotone Light</option>
+                    <!-- Add more themes as needed -->
+                </select>
+            </div>
+
             <!-- Language Selection Tabs -->
             <div class="language-tabs">
                 <button class="lang-tab active" id="lang-js">JavaScript</button>
@@ -93,10 +107,10 @@ alert('Welcome to the Interactive JavaScript Runner!');
             </div>
 
             <!-- Python Runner -->
-            <div id="runner-python" class="runner-section" style="display: none;">
+            <div id="runner-python" class="runner-section">
                 <h3>Python Runner</h3>
                 <div class="code-runner">
-                        <textarea id="py-code" name="py-code" style="background-color: #1aff98;">
+                        <textarea id="py-code" name="py-code">
 # Write your Python code here
 print("Hello, World!")
                         </textarea>

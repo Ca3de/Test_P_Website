@@ -4,34 +4,84 @@
 // Common Functionalities
 // =========================
 
-// Theme Toggle
+// Theme Toggle and Theme Selector
 const themeToggle = document.querySelector('.theme-toggle');
 const body = document.body;
 const themeIcon = themeToggle.querySelector('i');
 
-// Function to toggle theme
+// References to CodeMirror instances
+let jsEditor, pyEditor;
+
+// Function to dynamically load a CSS file
+function loadThemeCSS(themeName) {
+    return new Promise((resolve, reject) => {
+        const existingLink = document.getElementById(`cm-theme-${themeName}`);
+        if (existingLink) {
+            // Theme CSS already loaded
+            resolve();
+            return;
+        }
+
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = `assets/codemirror/theme/${themeName}.css`; // Ensure correct path
+        link.id = `cm-theme-${themeName}`;
+
+        link.onload = () => {
+            console.log(`Theme '${themeName}' loaded successfully.`);
+            resolve();
+        };
+
+        link.onerror = () => {
+            console.error(`Failed to load theme '${themeName}'.`);
+            reject(new Error(`Failed to load theme '${themeName}'.`));
+        };
+
+        document.head.appendChild(link);
+    });
+}
+
+// Function to apply a theme to CodeMirror editors
+async function applyTheme(themeName) {
+    try {
+        await loadThemeCSS(themeName);
+        if (jsEditor) jsEditor.setOption('theme', themeName);
+        if (pyEditor) pyEditor.setOption('theme', themeName);
+        console.log(`Theme '${themeName}' applied to editors.`);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+// Function to toggle between light and dark themes
 function toggleTheme() {
-    // Create the expanding circle
+    // Create the expanding circle for visual effect
     const circle = document.createElement('span');
     circle.classList.add('theme-transition-circle');
     body.appendChild(circle);
 
-    // Toggle the light mode
+    // Toggle the light and dark mode classes
     body.classList.toggle('light-mode');
     body.classList.toggle('dark-mode'); // Ensure to toggle both classes
+
+    // Determine the new theme based on the current mode
+    const newTheme = body.classList.contains('light-mode') ? 'eclipse' : 'dracula';
 
     // Update theme icon
     if (body.classList.contains('light-mode')) {
         themeIcon.classList.remove('fa-moon');
         themeIcon.classList.add('fa-sun');
-        localStorage.setItem('theme', 'light');
+        localStorage.setItem('theme', 'eclipse'); // Save the selected theme
     } else {
         themeIcon.classList.remove('fa-sun');
         themeIcon.classList.add('fa-moon');
-        localStorage.setItem('theme', 'dark');
+        localStorage.setItem('theme', 'dracula'); // Save the selected theme
     }
 
-    // Remove the circle after animation
+    // Apply the new theme to CodeMirror editors
+    applyTheme(newTheme);
+
+    // Remove the expanding circle after animation
     circle.addEventListener('animationend', () => {
         circle.remove();
     });
@@ -47,17 +97,26 @@ themeToggle.addEventListener('keydown', (e) => {
 });
 
 // Initialize Theme on Page Load
-document.addEventListener('DOMContentLoaded', () => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'light') {
+document.addEventListener('DOMContentLoaded', async () => {
+    const savedTheme = localStorage.getItem('theme') || 'dracula'; // Default to 'dracula' if not set
+
+    if (savedTheme === 'eclipse') {
         body.classList.add('light-mode');
+        body.classList.remove('dark-mode');
         themeIcon.classList.remove('fa-moon');
         themeIcon.classList.add('fa-sun');
     } else {
-        body.classList.add('dark-mode'); // Default to dark mode if not set
+        body.classList.add('dark-mode');
+        body.classList.remove('light-mode');
         themeIcon.classList.remove('fa-sun');
         themeIcon.classList.add('fa-moon');
     }
+
+    // Initialize CodeMirror Editors with the saved theme
+    const initialTheme = savedTheme;
+
+    // Apply the saved theme to ensure it's loaded
+    await applyTheme(initialTheme);
 
     // Initialize AOS
     if (typeof AOS !== 'undefined') {
@@ -86,6 +145,20 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             toggleNav();
         }
+    });
+    
+    jsEditor = CodeMirror.fromTextArea(document.getElementById('js-code'), {
+        lineNumbers: true,
+        mode: "javascript",
+        theme: initialTheme,
+        viewportMargin: Infinity
+    });
+
+    pyEditor = CodeMirror.fromTextArea(document.getElementById('py-code'), {
+        lineNumbers: true,
+        mode: "python",
+        theme: initialTheme,
+        viewportMargin: Infinity
     });
 
     // Initialize Code Playground Features
@@ -196,21 +269,17 @@ function initializeCodePlayground() {
     const codePlaygroundSection = document.getElementById('code-playground');
     if (!codePlaygroundSection) return;
 
-    // Initialize CodeMirror Editors
-    const jsEditor = CodeMirror.fromTextArea(document.getElementById('js-code'), {
-        lineNumbers: true,
-        mode: "javascript",
-        theme: "dracula darcula",
-        electricChars: True,
-        viewportMargin: Infinity
-    });
+    // Theme Selector Setup
+    const themeSelect = document.getElementById('theme-select');
+    if (themeSelect) {
+        themeSelect.value = localStorage.getItem('theme') || 'dracula'; // Set the selector to the saved theme
 
-    const pyEditor = CodeMirror.fromTextArea(document.getElementById('py-code'), {
-        lineNumbers: true,
-        mode: "python",
-        theme: "dracula",
-        viewportMargin: Infinity
-    });
+        themeSelect.addEventListener('change', (event) => {
+            const selectedTheme = event.target.value;
+            localStorage.setItem('theme', selectedTheme);
+            applyTheme(selectedTheme);
+        });
+    }
 
     // Language Selection Tabs
     const langJsBtn = document.getElementById('lang-js');
@@ -236,6 +305,18 @@ function initializeCodePlayground() {
         document.getElementById('runner-javascript').style.display = 'none';
     });
 
+    // JavaScript Runner Button
+    const runJsBtn = document.getElementById('run-js-btn');
+    if (runJsBtn) {
+        runJsBtn.addEventListener('click', runJavaScript);
+    }
+
+    // Python Runner Button
+    const runPyBtn = document.getElementById('run-py-btn');
+    if (runPyBtn) {
+        runPyBtn.addEventListener('click', runPython);
+    }
+
     // Real-Time Code Execution with Debounce (Optional)
     /*
     let jsTimeout, pyTimeout;
@@ -250,136 +331,6 @@ function initializeCodePlayground() {
         pyTimeout = setTimeout(runPython, 500); // Runs after 500ms of inactivity
     });
     */
-
-    // JavaScript Runner Button
-    const runJsBtn = document.getElementById('run-js-btn');
-    if (runJsBtn) {
-        runJsBtn.addEventListener('click', runJavaScript);
-    }
-
-    // Python Runner Button
-    const runPyBtn = document.getElementById('run-py-btn');
-    if (runPyBtn) {
-        runPyBtn.addEventListener('click', runPython);
-    }
-
-    // JavaScript Runner Function with Enhanced Error Handling
-    function runJavaScript() {
-        const code = jsEditor.getValue();
-        const iframe = document.getElementById('js-output-frame');
-
-        if (!iframe) {
-            console.error("Iframe with ID 'js-output-frame' not found.");
-            return;
-        }
-
-        const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-
-        // Clear previous content
-        iframeDoc.open();
-        iframeDoc.write(`
-            <!DOCTYPE html>
-            <html lang="en">
-            <head><title>JavaScript Output</title></head>
-            <body>
-                <pre id="output" style="background-color: #1e1e1e; color: #abb2bf; padding: 10px; border-radius: 5px;"></pre>
-                <script>
-                    (function() {
-                        const output = document.getElementById('output');
-                        const originalConsoleLog = console.log;
-                        console.log = function(message) {
-                            output.textContent += message + '\\n';
-                            originalConsoleLog.apply(console, arguments);
-                        };
-                        try {
-                            ${code}
-                        } catch (error) {
-                            output.textContent = 'Error: ' + error.message;
-                        }
-                    })();
-                <\/script>
-            </body>
-            </html>
-        `);
-        iframeDoc.close();
-    }
-
-    // Initialize Pyodide for Python Execution
-    let pyodideReady = false;
-    let pyodide = null;
-
-    async function loadPyodideAndPackages() {
-        try {
-            pyodide = await loadPyodide();
-            pyodideReady = true;
-            console.log("Pyodide loaded successfully.");
-        } catch (error) {
-            console.error("Failed to load Pyodide:", error);
-        }
-    }
-
-    loadPyodideAndPackages();
-
-    // Python Runner Function with Enhanced Error Handling
-    async function runPython() {
-        const output = document.getElementById('py-output');
-        if (!output) {
-            console.error("Element with ID 'py-output' not found.");
-            return;
-        }
-
-        if (!pyodideReady) {
-            alert("Loading Python environment, please wait...");
-            await loadPyodideAndPackages();
-            if (!pyodideReady) {
-                alert("Failed to load Python environment.");
-                return;
-            }
-        }
-
-        const code = pyEditor.getValue();
-        output.textContent = ''; // Clear previous output
-
-        try {
-            // Redirect print to capture output
-            pyodide.globals.set("print", (text) => {
-                output.textContent += text + '\n';
-            });
-            await pyodide.runPythonAsync(code);
-        } catch (error) {
-            output.textContent = `Error: ${error.message}`;
-        }
-    }
-
-    // Persisting User Code with localStorage
-    // Save Code Function
-    function saveCode(editorInstance, key) {
-        const code = editorInstance.getValue();
-        localStorage.setItem(key, code);
-    }
-
-    // Load Code Function
-    function loadCode(editorInstance, key) {
-        const code = localStorage.getItem(key);
-        if (code) {
-            editorInstance.setValue(code);
-        }
-    }
-
-    // Save code on editor changes (Optional)
-    /*
-    jsEditor.on("change", () => {
-        saveCode(jsEditor, 'js-code');
-    });
-
-    pyEditor.on("change", () => {
-        saveCode(pyEditor, 'py-code');
-    });
-    */
-
-    // Load code on initialization
-    loadCode(jsEditor, 'js-code');
-    loadCode(pyEditor, 'py-code');
 }
 
 // =========================
@@ -405,3 +356,128 @@ function animateCodeLines(codeElement) {
         }, index * 100); // Adjust delay as needed
     });
 }
+
+// JavaScript Runner Function with Enhanced Error Handling
+function runJavaScript() {
+    const code = jsEditor.getValue();
+    const iframe = document.getElementById('js-output-frame');
+
+    if (!iframe) {
+        console.error("Iframe with ID 'js-output-frame' not found.");
+        return;
+    }
+
+    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+    // Clear previous content
+    iframeDoc.open();
+    iframeDoc.write(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head><title>JavaScript Output</title></head>
+        <body>
+            <pre id="output" style="background-color: #1e1e1e; color: #abb2bf; padding: 10px; border-radius: 5px;"></pre>
+            <script>
+                (function() {
+                    const output = document.getElementById('output');
+                    const originalConsoleLog = console.log;
+                    console.log = function(message) {
+                        output.textContent += message + '\\n';
+                        originalConsoleLog.apply(console, arguments);
+                    };
+                    try {
+                        ${code}
+                    } catch (error) {
+                        output.textContent = 'Error: ' + error.message;
+                    }
+                })();
+            <\/script>
+        </body>
+        </html>
+    `);
+    iframeDoc.close();
+}
+
+// Initialize Pyodide for Python Execution
+let pyodideReady = false;
+let pyodide = null;
+
+async function loadPyodideAndPackages() {
+    try {
+        pyodide = await loadPyodide();
+        pyodideReady = true;
+        console.log("Pyodide loaded successfully.");
+    } catch (error) {
+        console.error("Failed to load Pyodide:", error);
+    }
+}
+
+loadPyodideAndPackages();
+
+// Python Runner Function with Enhanced Error Handling
+async function runPython() {
+    const output = document.getElementById('py-output');
+    if (!output) {
+        console.error("Element with ID 'py-output' not found.");
+        return;
+    }
+
+    if (!pyodideReady) {
+        alert("Loading Python environment, please wait...");
+        await loadPyodideAndPackages();
+        if (!pyodideReady) {
+            alert("Failed to load Python environment.");
+            return;
+        }
+    }
+
+    const code = pyEditor.getValue();
+    output.textContent = ''; // Clear previous output
+
+    try {
+        // Redirect print to capture output
+        pyodide.globals.set("print", (text) => {
+            output.textContent += text + '\n';
+        });
+        await pyodide.runPythonAsync(code);
+    } catch (error) {
+        output.textContent = `Error: ${error.message}`;
+    }
+}
+
+// Persisting User Code with localStorage
+// Save Code Function
+function saveCode(editorInstance, key) {
+    const code = editorInstance.getValue();
+    localStorage.setItem(key, code);
+}
+
+// Load Code Function
+function loadCode(editorInstance, key) {
+    const code = localStorage.getItem(key);
+    if (code) {
+        editorInstance.setValue(code);
+    }
+}
+
+// Save code on editor changes (Optional)
+/*
+jsEditor.on("change", () => {
+    saveCode(jsEditor, 'js-code');
+});
+
+pyEditor.on("change", () => {
+    saveCode(pyEditor, 'py-code');
+});
+*/
+
+// Load code on initialization
+function loadSavedCode() {
+    loadCode(jsEditor, 'js-code');
+    loadCode(pyEditor, 'py-code');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Load saved code after initializing CodeMirror editors
+    loadSavedCode();
+});
