@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Existing head content -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Axion</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts (Optional) -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Prism.js CSS for Syntax Highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <!-- AOS CSS for Animations -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+</head>
+<body class="dark-mode">
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="index.html">Israel Oladeji</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#skills">Skills</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="index.html#resume">Resume</a></li>
+                <li><a href="index.html#contact">Links</a></li>
+            </ul>
+            <!-- Add Toggle Button in Navigation -->
+            <div class="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </div>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="scroll-indicator" data-aos="fade-up" data-aos-delay="2000">
+        <i class="fas fa-arrow-down"></i>
+    </div>
+    
+    <!-- Main Content Wrapper -->
+    <div class="main-content">
+        <!-- Projects Section -->
+        <section id="projects-page" class="section">
+            <div class="container" data-aos="fade-up">
+                <h2>Projects</h2>
+                <div class="projects-list" id="projects-container">
+                    <!-- Projects will be loaded here dynamically -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Israel Oladeji | Axion. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript Libraries -->
+    <!-- AOS JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <!-- Prism.js JS for Syntax Highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <!-- Language-specific Prism Components -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <!-- Add other Prism language components as needed -->
+    <!-- Font Awesome for Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <!-- Your Custom Script -->
+    <script src="script.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            mirror: false
+        });
+
+        // Fetch and display projects from projects.json
+        fetch('projects.json')
+            .then(response => response.json())
+            .then(data => {
+                const projectsContainer = document.getElementById('projects-container');
+                data.projects.forEach(project => {
+                    const projectCard = document.createElement('div');
+                    projectCard.classList.add('project-card');
+                    projectCard.setAttribute('data-aos', 'fade-up');
+
+                    // Construct code lines with animation
+                    let codeContent = '';
+                    const codeLines = project.files[project.main_file].split('\n');
+                    codeLines.forEach((line, index) => {
+                        codeContent += `<span class="code-line" data-aos="fade-up" data-aos-delay="${index * 100}">${escapeHtml(line)}</span>\n`;
+                    });
+
+                    projectCard.innerHTML = `
+                        <div class="project-code" data-aos="fade-up">
+                            <pre><code class="language-${project.language}">
+${codeContent.trim()}
+                            </code></pre>
+                        </div>
+                        <div class="project-description" data-aos="fade-up" data-aos-delay="${codeLines.length * 100}">
+                            <p>${project.description}</p>
+                            <a href="${project.link}" class="btn" target="_blank">View Project</a>
+                        </div>
+                    `;
+                    projectsContainer.appendChild(projectCard);
+                });
+                // After adding all projects, highlight the code
+                Prism.highlightAll();
+            })
+            .catch(error => console.error('Error loading projects:', error));
+
+        // Function to escape HTML to prevent rendering issues
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;")
+                      .replace(/</g, "&lt;")
+                      .replace(/>/g, "&gt;")
+                      .replace(/"/g, "&quot;")
+                      .replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>

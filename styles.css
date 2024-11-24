@@ -1,0 +1,583 @@
+/* ===================== */
+/* General Styles        */
+/* ===================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--bg-color);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: var(--text-color);
+    transition: background-color 0.5s, color 0.5s, background-image 0.5s;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1; /* Allows the main content to grow and push the footer down */
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2.5em;
+    color: var(--accent-color);
+}
+
+/* ===================== */
+/* Navigation             */
+/* ===================== */
+
+nav {
+    background-color: var(--nav-bg-color);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 10000; /* Increased z-index to be above the transition circle */
+    transition: background-color 0.5s, color 0.5s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.logo a {
+    color: var(--accent-color);
+    font-size: 1.8em;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.nav-links li {
+    margin-left: 20px;
+}
+
+.nav-links a {
+    color: var(--nav-text-color);
+    text-decoration: none;
+    font-size: 1.1em;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--accent-color);
+}
+
+.theme-toggle {
+    margin-left: 20px;
+    cursor: pointer;
+    position: relative;
+    z-index: 10001; /* Ensure it's above the nav background and transition circle */
+}
+
+.theme-toggle i {
+    color: var(--nav-text-color);
+    font-size: 1.5em;
+    transition: color 0.3s;
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+}
+
+.hamburger i {
+    color: var(--nav-text-color);
+    font-size: 1.8em;
+}
+
+/* ===================== */
+/* Section Offset for Fixed Nav */
+/* ===================== */
+
+#home,
+#projects-page,
+#gallery-page {
+    padding-top: 80px; /* Adjust based on your nav bar height */
+    flex: 1; /* Allows the section to grow and push the footer to the bottom */
+}
+
+/* ===================== */
+/* Home Section          */
+/* ===================== */
+
+#home {
+    padding-bottom: 100px;
+    text-align: center;
+}
+
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 4px solid var(--accent-color);
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+.intro h1 {
+    display: inline-block;
+    margin: 0.9%;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.firstname {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    color: var(--intro-hello-font-color);
+}
+
+.hello {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    color: var(--intro-header-font-color);
+}
+
+.intro p {
+    font-size: 1.2em;
+    color: var(--intro-sub-font-color);
+    font-weight: bold;
+}
+
+/* ===================== */
+/* Skills Section        */
+/* ===================== */
+
+.skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.skill-item {
+    background-color: var(--section-bg-color);
+    padding: 20px;
+    border-radius: 10px;
+    width: 250px;
+    text-align: center;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.skill-item:hover {
+    transform: translateY(-10px);
+    background-color: var(--section-hover-bg-color);
+}
+
+.skill-item i {
+    font-size: 2.5em;
+    color: var(--accent-color);
+    margin-bottom: 15px;
+}
+
+.skill-item h3 {
+    margin-bottom: 10px;
+    font-size: 1.5em;
+}
+
+.skill-item p {
+    font-size: 1em;
+    color: var(--secondary-text-color);
+}
+
+/* ===================== */
+/* Projects Section      */
+/* ===================== */
+
+.projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 40px; /* Space between projects */
+}
+
+.project-card {
+    background-color: var(--section-bg-color);
+    border-radius: 10px;
+    padding: 20px;
+    transition: transform 0.3s, background-color 0.3s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    background-color: var(--section-hover-bg-color);
+}
+
+.project-code {
+    background-color: #2d2d2d; /* Dark background for code */
+    border-radius: 5px;
+    padding: 20px;
+    overflow-x: auto;
+}
+
+.project-code pre {
+    margin: 0;
+    font-size: 1.1em;
+    line-height: 1.5;
+}
+
+.project-description {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.project-description p {
+    font-size: 1.2em;
+    color: var(--secondary-text-color);
+    margin-bottom: 15px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--accent-color);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: var(--accent-hover-color);
+}
+
+/* ===================== */
+/* Code Animation        */
+/* ===================== */
+
+.code-line {
+    display: inline-block;
+    overflow: hidden;
+    white-space: pre;
+    border-right: 2px solid;
+    animation: typing 0.5s steps(40, end) forwards;
+    width: 0; /* Start with zero width */
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+/* ===================== */
+/* Gallery Section       */
+/* ===================== */
+
+.gallery-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.gallery-item {
+    width: 300px;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.gallery-item img:hover {
+    transform: scale(1.05);
+}
+
+/* ===================== */
+/* Contact/Links Section */
+/* ===================== */
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.social-links a {
+    color: var(--nav-text-color);
+    font-size: 1.5em;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.social-links a:hover {
+    color: var(--accent-color);
+}
+
+.social-links a i {
+    margin-right: 8px;
+}
+
+/* ===================== */
+/* Footer                */
+/* ===================== */
+
+footer {
+    background-color: var(--nav-bg-color);
+    padding: 20px 0;
+    text-align: center;
+    color: var(--nav-text-color);
+    font-size: 0.9em;
+    transition: background-color 0.5s, color 0.5s;
+    margin-top: auto; /* Pushes footer to the bottom */
+}
+
+/* ===================== */
+/* Responsive Styles     */
+/* ===================== */
+
+@media (max-width: 768px) {
+    .nav-links {
+        position: absolute;
+        top: 70px;
+        left: -100%;
+        background-color: var(--nav-bg-color);
+        width: 100%;
+        height: calc(100vh - 70px);
+        flex-direction: column;
+        align-items: center;
+        transition: left 0.3s;
+    }
+
+    .nav-links.active {
+        left: 0;
+    }
+
+    .nav-links li {
+        margin: 20px 0;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .home-container {
+        padding-top: 60px;
+    }
+
+    .skills-grid, .projects-grid, .gallery-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .theme-toggle {
+        margin-left: 0;
+        margin-top: 20px;
+    }
+}
+
+/* ===================== */
+/* Theme Variables       */
+/* ===================== */
+
+:root {
+    /* Dark Theme Variables */
+    --bg-color: #1a1a1a;
+    --text-color: #e6e6e6;
+    --nav-bg-color: #0d0d0d;
+    --nav-text-color: #e6e6e6;
+    --section-bg-color: #1e1e1e;
+    --section-hover-bg-color: #262626;
+    --secondary-text-color: #cccccc;
+    --accent-color: #ff1a75; /* Original Red */
+    --accent-hover-color: #e6005c; /* Original Darker Red */
+    --background-image: url('images/dark-bg.jpg'); /* Dark theme background */
+    --intro-header-font-color: #bd0662;
+    --intro-hello-font-color: #ffd700;
+    --intro-sub-font-color: #ffd700;
+}
+
+body.light-mode {
+    /* Light Theme Variables */
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --nav-bg-color: #f0f0f0;
+    --nav-text-color: #000000;
+    --section-bg-color: #f9f9f9;
+    --section-hover-bg-color: #e6e6e6;
+    --secondary-text-color: #333333;
+    --accent-color: #1aff98; /* Green */
+    --accent-hover-color: #00cc7a; /* Darker Green */
+    --background-image: url('images/light-bg.jpg'); /* Light theme background */
+    --intro-header-font-color: #000000;
+    --intro-hello-font-color: #000000;
+    --intro-sub-font-color: #000000;
+}
+
+body {
+    background-color: var(--bg-color);
+    background-image: var(--background-image);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: var(--text-color);
+    transition: background-color 0.5s, color 0.5s, background-image 0.5s;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo a {
+    color: var(--accent-color);
+}
+
+.btn {
+    background-color: var(--accent-color);
+    color: #ffffff;
+}
+
+.btn:hover {
+    background-color: var(--accent-hover-color);
+}
+
+nav, footer {
+    background-color: var(--nav-bg-color);
+    color: var(--nav-text-color);
+    transition: background-color 0.5s, color 0.5s;
+}
+
+.nav-links a, .hamburger i, .theme-toggle i {
+    color: var(--nav-text-color);
+}
+
+.nav-links a:hover, .btn, .logo a {
+    color: var(--accent-color);
+}
+
+.social-links a {
+    color: var(--nav-text-color);
+}
+
+.social-links a:hover {
+    color: var(--accent-color);
+}
+
+/* ===================== */
+/* Prism.js Custom Styles */
+/* ===================== */
+
+code[class*="language-"],
+pre[class*="language-"] {
+    color: #f0f0f0;
+    background: none;
+    text-shadow: none;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1em;
+    direction: ltr;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    line-height: 1.5;
+    tab-size: 4;
+    hyphens: none;
+}
+
+pre[class*="language-"] {
+    padding: 1em;
+    margin: .5em 0;
+    overflow: auto;
+    border-radius: 5px;
+}
+
+/* ===================== */
+/* Theme Transition Circle */
+/* ===================== */
+
+.theme-transition-circle {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background-color: var(--bg-color);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: expand 0.5s forwards;
+    z-index: 9999; /* Below nav (z-index: 10000) */
+}
+
+@keyframes expand {
+    from {
+        width: 0;
+        height: 0;
+        opacity: 0.7;
+    }
+    to {
+        width: 2000px;
+        height: 2000px;
+        opacity: 0;
+    }
+}
+
+/* ===================== */
+/* Button Styles          */
+/* ===================== */
+
+.btn.download-resume {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--accent-color);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn.download-resume:hover {
+    background-color: var(--accent-hover-color);
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2em;
+    color: var(--secondary-text-color);
+    animation: bounce 2s infinite;
+    cursor: pointer;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    40% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+    60% {
+        transform: translateX(-50%) translateY(-5px);
+    }
+}

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Israel Oladeji - Computer Science Student</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts (Optional) -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <!-- AOS CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <!-- Prism.js CSS for Syntax Highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <meta name="description" content="Personal website of Israel Oladeji, a Computer Science student showcasing skills and projects.">
+    <meta name="keywords" content="Your Name, Computer Science, Projects, Portfolio, Skills">
+    <meta name="author" content="Your Name">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="index.html">Israel Oladeji</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#skills">Skills</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="index.html#resume">Resume</a></li>
+                <li><a href="index.html#contact">Links</a></li>
+            </ul>
+            <!-- Add Toggle Button in Navigation -->
+            <div class="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </div>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Home Section -->
+    <section id="home" class="section">
+        <div class="container home-container" data-aos="fade-up">
+            <img src="images/profile.jpg" alt="Israel Oladeji" class="profile-pic">
+            <div class="intro">
+                <h1 class="hello">Hello, I'm </h1><h1 class="firstname">Israel</h1><h1 class="hello"> Oladeji</h1>
+                <p>A passionate Computer Science student graduating in 2025.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <div class="container" data-aos="fade-up">
+            <h2>Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-item" data-aos="zoom-in">
+                    <i class="fas fa-code"></i>
+                    <h3>Programming</h3>
+                    <p>Java, Python, C++, JavaScript, HTML, CSS</p>
+                </div>
+                <div class="skill-item" data-aos="zoom-in" data-aos-delay="100">
+                    <i class="fas fa-database"></i>
+                    <h3>Databases</h3>
+                    <p>MySQL, MongoDB, PostgreSQL</p>
+                </div>
+                <div class="skill-item" data-aos="zoom-in" data-aos-delay="200">
+                    <i class="fas fa-cloud"></i>
+                    <h3>Cloud Services</h3>
+                    <p>AWS, Azure, Google Cloud</p>
+                </div>
+                <div class="skill-item" data-aos="zoom-in" data-aos-delay="300">
+                    <i class="fas fa-robot"></i>
+                    <h3>Machine Learning</h3>
+                    <p>TensorFlow, Keras, scikit-learn</p>
+                </div>
+                <!-- Add more skills as needed -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Resume Section -->
+    <section id="resume" class="section">
+        <div class="container" data-aos="fade-up">
+            <h2>My Resume</h2>
+            <div class="resume-container">
+                <embed src="resume.pdf" type="application/pdf" width="100%" height="600px" />
+            </div>
+            <a href="resume.pdf" class="btn download-resume" download>Download Resume</a>
+        </div>
+    </section>
+
+    
+    <!-- Contact/Links Section -->
+    <section id="contact" class="section">
+        <div class="container" data-aos="fade-up">
+            <h2>Connect with Me</h2>
+            <div class="social-links">
+                <a href="https://github.com/Ca3de" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                <a href="https://linkedin.com/in/israel-oladeji" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                <a href="mailto:triygoc@icloud.com"><i class="fas fa-envelope"></i> Email</a>
+                <!-- Add more links as needed -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container" data-aos="fade-up">
+            <p>&copy; 2024 Your Name. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <!-- AOS JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <!-- Prism.js JS for Syntax Highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <!-- Optionally include language-specific Prism components -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <!-- Add other Prism language components as needed -->
+    <script src="script.js"></script>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_TRACKING_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'YOUR_TRACKING_ID');
+    </script>
+</body>
+</html>
