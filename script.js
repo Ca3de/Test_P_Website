@@ -144,7 +144,7 @@ if (document.getElementById('projects-container')) {
                 projectCard.innerHTML = `
                     <div class="atom-header">
                         <div class="tabs">
-                            <span class="tab active">Project</span>
+                            <span class="tab active">${escapeHtml(project.title)}</span>
                             <span class="tab">File</span>
                             <span class="tab">Edit</span>
                         </div>
